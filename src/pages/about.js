@@ -40,7 +40,7 @@ const about = () => {
     <div>
       <Head>
         <title>takemeforward | About Page</title>
-        <meta name="description" content="any description" />
+        {/* <meta name="description" content="any description" /> */}
       </Head>
       <TransitionEffect />
       <main className='flex w-full flex-col items-center justify-center dark:text-light'>

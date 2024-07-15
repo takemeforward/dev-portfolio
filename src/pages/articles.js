@@ -91,7 +91,7 @@ const articles = () => {
     <>
         <Head>
             <title>takemeforward | Articles Page</title>
-            <meat name="description" content="any description" />
+            {/* <meat name="description" content="any description" /> */}
         </Head>
         <TransitionEffect />
         <main className='w-full mb-16 flex flex-col justify-center items-center overflow-hidden dark:text-light'>

@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <Head>
         <title>My Portfolio</title>
-        <meat name="description" content="any description" />
+        {/* <meat name="description" content="any description" /> */}
       </Head>
       <TransitionEffect />
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>

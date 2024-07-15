@@ -117,7 +117,7 @@ const projects = () => {
     <>
         <Head>
             <title>takemeforward | Projects page</title>
-            <meat name="description" content="any description" />
+            {/* <meat name="description" content="any description" /> */}
         </Head>
 
         <TransitionEffect />
