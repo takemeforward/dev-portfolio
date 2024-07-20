@@ -69,15 +69,15 @@ const NavBar = () => {
                 <CustomLink href={'articles'} title={'Articles'} className={'ml-4'}/>
             </nav>
             <nav className='flex items-center justify-center flex-wrap space-x-3'>
-            <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+            <motion.a href={'https://www.linkedin.com/in/in-vishal-kumar/'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
                     <LinkedInIcon className={' mr-1'} />
             </motion.a>
             
-            <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+            <motion.a href={'https://github.com/takemeforward'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
                 <GithubIcon className={' mx-1'} />
             </motion.a>
 
-            <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+            <motion.a href={'https://x.com/coderJha?t=pDbWF7V1qjUeGu4Mfed1Zg&s=08'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
                 <TwitterIcon className={' mx-1'} />
             </motion.a>
 

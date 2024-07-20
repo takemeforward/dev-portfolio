@@ -11,7 +11,7 @@ const Footer = () => {
             Build with <span className='text-primary dark:text-primaryDark text-2xl px-1'>&#9825;</span> by &nbsp;<Link href={'https://www.linkedin.com/in/in-vishal-kumar/'} target='blank' className='hover:underline underline-offset-2'>Vishal Kumar</Link>
             </div>
             
-            <Link href={'/'} >Say hello</Link>
+            <Link target='_blank' href={`https://www.linkedin.com/in/in-vishal-kumar/`} >Say hello</Link>
         </Layout>
     </footer>
   )

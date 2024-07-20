@@ -7,7 +7,10 @@ import { GithubIcon } from '@/components/Icons'
 import Head from 'next/head'
 import {motion} from 'framer-motion'
 import project1 from '../../public/images/projects/cryptoInsights.png'
-import project2 from '../../public/images/projects/mimicMeet.png'
+import blogrImg from '../../public/images/projects/blogr-img.png'
+import tindogImg from '../../public/images/projects/dogTinder-img.png'
+import calcImg from '../../public/images/projects/calculator-img.png'
+import project2 from '../../public/images/projects/mimicMeetPoster.png'
 import insecBanner from '../../public/images/projects/insecBanner.png'
 import TransitionEffect from '@/components/TransitionEffect'
 
@@ -74,9 +77,9 @@ const Project = ({title, type, img, link, github})=>{
             <article className='w-full flex items-center justify-center rounded-2xl border border-solid border-dark bg-light relative p-6 flex-col dark:border-light dark:bg-dark xs:p-4'>
                 <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light md:-right-2 md:w-[101%] xs:h-[102%] xs:rounded-[1.5rem]'/>
                 <Link href={link} target='blank' 
-                 className='w-full cursor-pointer overflow-hidden rounded-lg'
+                 className='w-full cursor-pointer overflow-hidden rounded-lg max-h-[200px]'
                 >
-                    <FramerImage src={img} alt={title} className='w-full h-auto'
+                    <FramerImage src={img} alt={title} className='w-full h-auto object cover'
                     whileHover={{scale:1.05}}
                     transition={{duration:0.2}}
 
@@ -140,59 +143,60 @@ const projects = () => {
                             />
 
                     </div>
-                    <div className='col-span-6 sm:col-span-12'>
-                        <Project 
-                                title={'Crypto Screener Application'}
-                                link={'/'}
-                                type={'Featured Project'}
-                                img={project1}
-                                github={'www.github.com'}
-                            
-                            
-                            />
-                    </div>
-                    <div className='col-span-6 sm:col-span-12'>
-                        <Project 
-                                title={'Crypto Screener Application'}
-                                link={'/'}
-                                type={'Featured Project'}
-                                img={project1}
-                                github={'www.github.com'}
-                            
-                            
-                            />
-                    </div>
                     <div className='col-span-12'>
                     <FeaturedProject 
                             title={'Video Confrencing Application'}
-                            summery={`A robust video conferencing app built with React, Tailwind CSS, Context API, React Router, and Recharts.
-                                        It provides detailed stats on each session. Easily customize the UI to fit your brand.`}
+                            summery={`Developed a Next.js website for video conferencing with GetStream Provider integration for video calling.
+The site includes a user-friendly interface and essential features, with robust authentication using Clerk.`}
                             link={'/'}
                             type={'MimicMeet'}
                             img={project2}
-                            github={'www.github.com'}
+                            github={'https://github.com/takemeforward/mimicmeet'}
                         
                         
                         />
                     </div>
                     <div className='col-span-6 sm:col-span-12'>
                         <Project 
-                                    title={'Crypto Screener Application'}
-                                    link={'/'}
-                                    type={'Featured Project'}
-                                    img={project1}
-                                    github={'www.github.com'}
+                                title={'Crypto Screener Application'}
+                                link={'https://cryptoinsight-theta.vercel.app/'}
+                                type={'Crypto Insight'}
+                                img={project1}
+                                github={'https://github.com/takemeforward/React-relive/tree/main/09_react_project3/src'}
+                            
+                            
+                            />
+                    </div>
+                    <div className='col-span-6 sm:col-span-12'>
+                        <Project 
+                                title={'Robust Calculator'}
+                                link={'https://takemeforward.github.io/Calc-V/'}
+                                type={'Calc-v'}
+                                img={calcImg}
+                                github={'https://github.com/takemeforward/Calc-V'}
+                            
+                            
+                            />
+                    </div>
+                    
+                    <div className='col-span-6 sm:col-span-12'>
+                        <Project 
+                                    title={'Tinder for dogs.'}
+                                    link={'https://takemeforward.github.io/DogTinder/'}
+                                    type={'TinDog'}
+                                    img={tindogImg}
+                                    github={'https://github.com/takemeforward/DogTinder'}
                                 
                                 
                                 />
                     </div>
                     <div className='col-span-6 sm:col-span-12'>
                         <Project 
-                                    title={'Crypto Screener Application'}
-                                    link={'/'}
-                                    type={'Featured Project'}
-                                    img={project1}
-                                    github={'www.github.com'}
+                                    title={'Frontend for bloging site'}
+                                    link={'https://takemeforward.github.io/blogr/indexPc.html'}
+                                    type={'Blogr'}
+                                    img={blogrImg}
+                                    github={'https://github.com/takemeforward/blogr'}
                                 
                                 
                                 />

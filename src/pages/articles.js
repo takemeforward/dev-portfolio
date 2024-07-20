@@ -3,13 +3,46 @@ import Layout from '@/components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import React, { useRef } from 'react'
-import article1 from '../../public/images/articles/pagination component in reactjs.jpg'
-import article2 from '../../public/images/articles/create loading screen in react js.jpg'
-import article3 from '../../public/images/articles/create modal component in react using react portals.png'
+import React, { useEffect, useRef, useState } from 'react'
 import {motion, useMotionValue} from 'framer-motion'
 import TransitionEffect from '@/components/TransitionEffect'
 const FramerImage = motion(Image)
+
+import { request, gql } from 'graphql-request';
+import showdown from 'showdown';
+import { htmlToText } from 'html-to-text'
+import Loader from '@/components/Loader'
+
+const calculateReadTime = (text) => {
+  const wordsPerMinute = 200;
+  const noOfWords = text.split(/\s+/).length;
+  const minutes = Math.ceil(noOfWords / wordsPerMinute);
+  return minutes;
+};
+
+const POSTS_QUERY = gql`
+  query PostsByPublications {
+    publication1: publication(host: "vishalkaushik.hashnode.dev") {
+      id
+      posts(first: 10) {
+        edges {
+          node {
+            id
+            title
+            content {
+              markdown
+            }
+            coverImage {
+              url
+            }
+            publishedAt
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
 
 const MovingImg = ({title, img, link}) =>{
     const x = useMotionValue(0);
@@ -38,6 +71,8 @@ const MovingImg = ({title, img, link}) =>{
                     {title}
                 </h2>
                 <FramerImage src={img} alt={title} className='w-96 h-auto hidden absolute rounded-lg z-10 md:!hidden'
+                    
+                    layout="responsive"
                     ref={imgRef}
                     style={{x:x, y:y}}
                     initial = {{opacity:0}}
@@ -68,9 +103,9 @@ const FeaturedArticle = ({img, title, time, summery, link})=>{
         <li className='col-span-1 w-full p-4 bg-light border border-solid border-dark rounded-2xl relative dark:bg-dark dark:border-light'>
             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light md:-right-2 md:w-[101%] xs:h-[102%] xs:rounded-[1.5rem]'/>
             <Link href={link} target='blank' 
-                 className='w-full inline-block cursor-pointer overflow-hidden rounded-lg'
+                 className='w-full inline-block cursor-pointer overflow-hidden rounded-lg max-h-[200px]'
                 >
-                    <FramerImage src={img} alt={title} className='w-full h-auto'
+                    <FramerImage src={img} alt={title} className='w-full h-auto object cover' width={40} height={40}
                         whileHover={{scale:1.05}}
                         transition={{duration:0.2}}
                     />
@@ -81,12 +116,36 @@ const FeaturedArticle = ({img, title, time, summery, link})=>{
             <p className='text-base  mb-2'>{summery}</p>
             <div className='flex justify-between'>
             <span className='text-primary dark:text-primaryDark font-semibold md:text-sm'>{time}</span>
-            <Link href={'/'} target='_blank' className='text-primary dark:text-primaryDark font-semibold md:text-sm'>Read more...</Link>
+            <Link href={link} target='_blank' className='text-primary dark:text-primaryDark font-semibold md:text-sm'>Read more...</Link>
             </div>
         </li>
     )
 }
 const articles = () => {
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await request('https://gql.hashnode.com/', POSTS_QUERY);
+        setData(response);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <Loader/>
+  if (error) return <div>Error: {error.message}</div>;
+
+  const converter = new showdown.Converter();
   return (
     <>
         <Head>
@@ -98,38 +157,15 @@ const articles = () => {
             <Layout className={'pt-16'}>
                 <AnimatedText text={'Words Can Change The World!'} className='mb-16 sm:mb-8 lg:!text-7xl sm:!text-6xl xs:!text-4xl'/>
                 <ul className='grid grid-cols-2 gap-16 md:grid-cols-1 lg:gap-8 md:gap-y-16'>
-                    <FeaturedArticle title={'Build A Custom Pagination Component In Reactjs From Scratch'} summery={`Learn how to build a custom pagination component in ReactJS from scratch. 
-                        Follow this step-by-step guide to integrate Pagination component in your ReactJS project.`} time={'9 min read'} link={'/'} img={article1}/>
-
-                    <FeaturedArticle title={'Build A Custom Pagination Component In Reactjs From Scratch'} summery={`Learn how to build a custom pagination component in ReactJS from scratch. 
-                        Follow this step-by-step guide to integrate Pagination component in your ReactJS project.`} time={'9 min read'} link={'/'} img={article2}/>
-                </ul>
-                <h2 className='font-bold text-4xl w-full mb-16 mt-24 text-center'>All Articles</h2>
-                <ul>
-                    <Article 
-                        title={'Form Validation In Reactjs: Build A Reusable Custom Hook For Inputs And Error Handling'}
-                        img={article3}
-                        date={'March-22-2024'}
-                        link={'/'}
-                    />
-                    <Article 
-                        title={'Form Validation In Reactjs: Build A Reusable Custom Hook For Inputs And Error Handling'}
-                        img={article3}
-                        date={'March-22-2024'}
-                        link={'/'}
-                    />
-                    <Article 
-                        title={'Form Validation In Reactjs: Build A Reusable Custom Hook For Inputs And Error Handling'}
-                        img={article3}
-                        date={'March-22-2024'}
-                        link={'/'}
-                    />
-                    <Article 
-                        title={'Form Validation In Reactjs: Build A Reusable Custom Hook For Inputs And Error Handling'}
-                        img={article2}
-                        date={'March-22-2024'}
-                        link={'/'}
-                    />
+                {data.publication1.posts.edges.map(({ node }) => (
+                    
+                    <FeaturedArticle key={node.id} title={`${node.title.slice(0,50)}...`} summery={htmlToText(converter.makeHtml(node.content.markdown), { wordwrap: 130 }).slice(0,200)} time={`${calculateReadTime(htmlToText(converter.makeHtml(node.content.markdown), { wordwrap: 130 }))} mins`} link={`https://vishalkaushik.hashnode.dev/${node.slug}`} img={node.coverImage.url}/>
+                    ))
+                }
+                
+                
+                
+                    
                 </ul>
             </Layout>
             

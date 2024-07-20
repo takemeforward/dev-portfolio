@@ -38,7 +38,7 @@ const Home = () => {
                 As a seasoned full-stack developer, I aim to transform ideas into exceptional web applications. Explore my latest projects and articles, demonstrating my skills in WebD and modern web technologies.
                 </p>
                 <div className='flex items-center self-start mt-2 lg:self-center lg:justify-center '>
-                  <Link href={'/dummy.pdf'}  target='blank' 
+                  <Link href={'/myResume.pdf'}  target='blank' 
                   className='flex items-center bg-dark text-light p-2 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark
                   border border-solid border-transparent hover:border-dark  dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light md:text-md sm:text-sm md:p-2 md:px-4'
                   download={true}
